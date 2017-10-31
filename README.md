@@ -1,6 +1,6 @@
 # NLP-InformationExtractionSystem
 
-##NLTK Tutorials 
+## NLTK Tutorials 
 
 [POS Tagging](https://pythonprogramming.net/part-of-speech-tagging-nltk-tutorial/)
 
@@ -13,5 +13,12 @@
 In order to get wordnet to work run the command below
 ```
 sudo python -m nltk.downloader -d /usr/share/nltk_data wordnet
+```
+
+
+To use the GUI use the following and download all
+
+```
+sudo python -m nltk.downloader
 ```
 
