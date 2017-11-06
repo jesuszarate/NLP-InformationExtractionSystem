@@ -13,16 +13,8 @@ class infoExtract:
         self.template = io.FileOutputTemplate
         self.file = io.readFile(filename)
 
-    # def readFile(self, filename):
-    #     tokens = []
-    #     with open(filename, 'r') as f:
-    #         for line in f:
-    #             tokens.extend(line.split())
-    #     return tokens
-
     def getID(self):
         m = re.search('[a-zA-Z0-9_]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+', self.file)
-        #print(m.group(0))
         return m.group(0)
 
     def compute(self):
@@ -30,12 +22,6 @@ class infoExtract:
 
     def getResults(self):
         return self.template
-
-
-# def getFilePath(filename):
-#     return FILEPATH + filename
-#
-#
 
 
 
@@ -53,7 +39,7 @@ def main(argv):
     ie = infoExtract(argv[0])
     ie.compute()
 
-    io.writeTemplate(ie.getResults(), 'outputFile')
+    io.writeTemplate(ie.getResults(), argv[0])
 
 if __name__ == '__main__':
 
