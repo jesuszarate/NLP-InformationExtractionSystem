@@ -118,11 +118,18 @@ class infoExtract:
                 break
         return 'Attack'
 
+    def getWeapons(self, story):
+        m = re.match(r'(' + io.getWeapons() + ')', story)
+        if m != None:
+            return m.group(0)
+        return '-'
+
     def compute(self):
 
         for story in self.stories:
             template = io.getTemplate()
             template[io.ID['label']] = self.getID(story).upper()
+            template[io.WEAPON['label']] = self.getWeapons(story).upper()
             template[io.INCIDENT['label']] = self.getIncident(story).upper()
             template[io.VICTIM['label']] = self.getVictim(story)
             self.templates.append(template)
