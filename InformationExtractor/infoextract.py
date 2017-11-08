@@ -10,6 +10,7 @@ import re
 from InformationExtractor import IO as io
 
 FILEPATH = "devetexts/answers/texts/"
+FILEPATH = "/"
 
 ID_PATTERN = '[a-zA-Z0-9_]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+'
 
@@ -146,15 +147,14 @@ class infoExtract:
 
 
 def main(argv):
-    io.FILEPATH = '../'
+    io.FILEPATH = ''
     if len(argv) != 1:
         print('python infoextract.py <textfile>')
-        print('Note: Make sure the input files are stored in the eval-program-files folder')
         sys.exit(2)
 
     if not (io.isFile(argv[0])):
         print('In argument 1 file does not exist: {0}'.format(argv[0]))
-        print('Note: Make sure the input files are stored in the developset/texts/ folder')
+        print('Note: Makesure the input file is inside of the InformationExtractor directory')
         sys.exit(2)
 
     ie = infoExtract(argv[0])

@@ -1,7 +1,7 @@
 # NLP-InformationExtractionSystem
 
 ## Libraries used
-* NLTK 
+* NLTK
 
 ### Python Version used:
 ************************
@@ -16,7 +16,7 @@
 python3.6 infoextract.py <textfile>
 ```
 
-## NLTK Tutorials 
+## NLTK Tutorials
 
 [POS Tagging](https://pythonprogramming.net/part-of-speech-tagging-nltk-tutorial/)
 
