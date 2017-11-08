@@ -14,7 +14,7 @@ class POSTagger:
 
         filePath = fr.getPath(filename)
         if isfile(filePath):
-            tokens = nltk.word_tokenize(fr.readFile(filename))
+            tokens = nltk.word_tokenize(fr.readFile(filePath))
             tagged = nltk.pos_tag(tokens)
             namedEnt = nltk.ne_chunk(tagged, binary=False)
             # namedEnt.draw()
@@ -88,9 +88,9 @@ def main():
 
 
     #posT.processLanguage(sents)
-    posT.processLanguage(sents2)
+    #posT.processLanguage(sents2)
 
-    #print(posT.generateTags(file))
+    print(posT.generateTags(file))
 
     # posT.process_content()
 
