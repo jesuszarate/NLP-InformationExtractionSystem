@@ -38,3 +38,23 @@ To use the GUI use the following and download all
 sudo python -m nltk.downloader
 ```
 
+## System Time estimate:
+
+To process One document should take less than 1 second.
+
+## Contributions
+
+
+
+### Faith Oladele
+
+* Implemented NER system
+* Implemented a way to extract individual entities
+
+### Jesus Zarate
+* Implemented pattern recognition using the NER system
+* Implemented extraction pattern for weapons
+
+### Limitations
+
+* Our system only gets IDs, Weapons, Attack, and Victim

@@ -1,13 +1,11 @@
 import sys
-
 import nltk
-from nltk.chunk import conlltags2tree, tree2conlltags
-from nltk.corpus import wordnet
-from pathlib import Path
-from InformationExtractor import Patterns as pat
 import re
-
+from nltk.chunk import conlltags2tree, tree2conlltags
 from InformationExtractor import IO as io
+from InformationExtractor import Patterns as pat
+
+#import .IO as io
 
 FILEPATH = "devetexts/answers/texts/"
 FILEPATH = "/"

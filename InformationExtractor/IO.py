@@ -78,7 +78,7 @@ def getPath(filename):
 
 def readRegex():
     categories = dict()
-    with open('AttackTypes', ) as f:
+    with open('InformationExtractor/AttackTypes', ) as f:
 
         prev = '\n'
         for line in f:
@@ -120,7 +120,7 @@ def readFiles(filenames):
 
 
 def writeTemplate(outputResults, filename):
-    filename = '../OutputFiles/{0}.templates'.format(filename)
+    filename = 'OutputFiles/{0}.templates'.format(filename)
     with open(filename, 'w') as of:
         for result in outputResults:
             for key, val in result.items():
@@ -136,7 +136,7 @@ def readAllFiles():
     return stories
 
 def writeWeapons(weapons):
-    filename = 'weapons.txt'
+    filename = 'InformationExtractor/weapons.txt'
     with open(filename, 'w') as of:
         for w in weapons:
             of.write('{0}\n'.format(w))
@@ -144,7 +144,7 @@ def writeWeapons(weapons):
 
 def getWeapons():
     weaponRegex = ''
-    with open('weapons.txt', 'r') as f:
+    with open('InformationExtractor/weapons.txt', 'r') as f:
         for line in f:
             weaponRegex += '.*{0}/.*|'.format(line)
 
