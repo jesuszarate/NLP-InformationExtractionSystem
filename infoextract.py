@@ -10,7 +10,9 @@ from InformationExtractor import Patterns as pat
 FILEPATH = "devetexts/answers/texts/"
 FILEPATH = "/"
 
-ID_PATTERN = '[a-zA-Z0-9_]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+'
+# ID_PATTERN = '[DEV]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+|[DEV]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+'
+ID_PATTERN = '(Dev-Muc\d+-[a-zA-Z0-9_]+)|(Tst\d+-Muc\d+-[a-zA-Z0-9_]+)'
+
 
 
 class infoExtract:
@@ -19,6 +21,8 @@ class infoExtract:
         self.templates = []
         self.file = io.readFileAsArr(filename)
         self.stories = self.splitStories(self.file)  # self.file.split(ID_PATTERN)
+
+        self.weapons = []
 
     def splitStories(self, file):
         stories = []
@@ -32,7 +36,8 @@ class infoExtract:
         return stories
 
     def getID(self, story):
-        m = re.search('[a-zA-Z0-9_]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+', story)
+        #m = re.search('[a-zA-Z0-9_]+-[a-zA-Z0-9_]+-[a-zA-Z0-9_]+', story)
+        m = re.search(ID_PATTERN, story)
         return m.group(0)
 
     def getVictimsReg(self, items):
@@ -49,9 +54,15 @@ class infoExtract:
             entitiesperson = re.match(r'{0}|{1}'.format(person, organization), str(item))
             if entitiesperson != None:
                 itemStr = str(item).lower()
-                m = re.match(r'(' + '.*murder/.*' + ')', itemStr)
-                if m != None:
+
+                m = re.findall(r'(' + '.*murder/.*' + ')', itemStr)
+                if len(m) > 0:
                     return item
+
+                # TODO: Code for the midpoint eval
+                # m = re.match(r'(' + '.*murder/.*' + ')', itemStr)
+                # if m != None:
+                #     return item
 
     def formatTuple(self, tup):
         res = ''
@@ -118,10 +129,21 @@ class infoExtract:
         return 'Attack'
 
     def getWeapons(self, story):
-        m = re.match(r'(' + io.getWeapons() + ')', story)
-        if m != None:
-            return m.group(0)
-        return '-'
+
+        if len(self.weapons) == 0:
+            self.weapons = io.getWeapons()
+
+        m = re.findall(r'(' + self.weapons +')', story)
+        if len(m):
+            # print(m[0])
+            return m[0].strip()
+        else:
+            return '-'
+        # TODO: This is the code turned in
+        # m = re.match(r'(' + io.getWeapons() + ')', story)
+        # if m != None:
+        #     return m.group(0)
+        # return '-'
 
     def compute(self):
 

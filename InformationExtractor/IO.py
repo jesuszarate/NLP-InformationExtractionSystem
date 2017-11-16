@@ -3,8 +3,11 @@ from os import listdir
 from os.path import isfile, join
 import copy
 
+import re
+
 FILEPATH = "../developset/texts/"
 ANSWER_FILEPATH = "../developset/answers/"
+weapons = ""
 
 ID = {'label': 'ID', 'tabs': 5}
 INCIDENT = {'label': 'INCIDENT', 'tabs': 3}
@@ -16,15 +19,14 @@ ELECTRIC_TOWERS = {'label': 'ELECTRIC TOWERS', 'tabs': 1}
 VICTIM = {'label': 'VICTIM', 'tabs': 4}
 
 TABS = {
-'ID' : 5,
-'INCIDENT' : 3,
-'WEAPON' : 4,
-'PERP_INDIV' : 3,
-'PERP_ORG' : 3,
-'TARGET' : 4,
-'ELECTRIC_TOWERS' : 1,
-'VICTIM' : 4}
-
+    'ID': 5,
+    'INCIDENT': 3,
+    'WEAPON': 4,
+    'PERP_INDIV': 3,
+    'PERP_ORG': 3,
+    'TARGET': 4,
+    'ELECTRIC_TOWERS': 1,
+    'VICTIM': 4}
 
 FileOutputTemplate = {
     'ID': '-',
@@ -37,8 +39,10 @@ FileOutputTemplate = {
     'VICTIM': '-'
 }
 
+
 def getTemplate():
     return copy.deepcopy(FileOutputTemplate)
+
 
 def readFileAsArr(filename):
     filename = getPath(filename)
@@ -76,6 +80,7 @@ def isFile(filename):
 def getPath(filename):
     return join(FILEPATH, filename)
 
+
 def readRegex():
     categories = dict()
     with open('InformationExtractor/AttackTypes', ) as f:
@@ -93,19 +98,20 @@ def readRegex():
             categories[prev].add(line)
     return categories
 
+
 def readFile(filename, path=''):
     if path == '':
         filename = getPath(filename)
     else:
         filename = join(path, filename)
 
-    #filename = getPath(filename)
+    # filename = getPath(filename)
     tokens = ""
     with open(filename, 'r') as f:
         for line in f:
             tokens += line
     # return tokens.lower()
-    #print(tokens.title())
+    # print(tokens.title())
 
     # tokens = '. '.join(i.capitalize() for i in tokens.split('.\\s*'))
     return tokens.title()
@@ -120,12 +126,14 @@ def readFiles(filenames):
 
 
 def writeTemplate(outputResults, filename):
-    filename = 'OutputFiles/{0}.templates'.format(filename)
+    # filename = 'OutputFiles/{0}.templates'.format(filename)
+    filename = '{0}.templates'.format(filename)
     with open(filename, 'w') as of:
         for result in outputResults:
             for key, val in result.items():
-                of.write('{0}:{1}{2}\n'.format(key, '\t'*TABS[key], val))
+                of.write('{0}:{1}{2}\n'.format(key, '\t' * TABS[key], val))
             of.write("\n")
+
 
 def readAllFiles():
     files = [f for f in listdir(ANSWER_FILEPATH) if isfile(join(ANSWER_FILEPATH, f))]
@@ -134,6 +142,7 @@ def readAllFiles():
     for file in files:
         stories.append(readFile(file, ANSWER_FILEPATH))
     return stories
+
 
 def writeWeapons(weapons):
     filename = 'InformationExtractor/weapons.txt'
@@ -144,8 +153,8 @@ def writeWeapons(weapons):
 
 def getWeapons():
     weaponRegex = ''
+    # with open('weapons.txt', 'r') as f:
     with open('InformationExtractor/weapons.txt', 'r') as f:
         for line in f:
-            weaponRegex += '.*{0}/.*|'.format(line)
-
+            weaponRegex += '{0}|'.format(line.strip())
     return weaponRegex[:-1]
