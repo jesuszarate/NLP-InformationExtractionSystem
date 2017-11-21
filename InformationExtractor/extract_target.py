@@ -1,0 +1,3 @@
+
+def getTarget():
+    return '-'
