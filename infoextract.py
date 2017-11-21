@@ -2,7 +2,7 @@ import sys
 import nltk
 import re
 from nltk.chunk import conlltags2tree, tree2conlltags
-from InformationExtractor import extract_target, extract_perp_org, extract_perp_indiv
+from InformationExtractor import extract_target, extract_perp_org, extract_perp_indiv, extract_weapon
 from InformationExtractor import IO as io
 from InformationExtractor import Patterns as pat
 
@@ -118,25 +118,12 @@ class infoExtract:
                 break
         return 'Attack'
 
-    def getWeapons(self, story):
-
-        if len(self.weapons) == 0:
-            self.weapons = io.getWeapons()
-
-        m = re.findall(r'(' + self.weapons +')', story)
-        if len(m):
-            # print(m[0])
-            return m[0].strip()
-        else:
-            return '-'
-
-
     def compute(self):
 
         for story in self.stories:
             template = io.getTemplate()
             template[io.ID['label']] = self.getID(story).upper()
-            template[io.WEAPON['label']] = self.getWeapons(story).upper()
+            template[io.WEAPON['label']] = extract_weapon.get_weapons(self.weapons, story)
             template[io.PERP_INDIV['label']] = extract_perp_indiv.get_perp_indiv()
             template[io.PERP_ORG['label']] = extract_perp_org.getPerpOrg()
             template[io.TARGET['label']] = extract_target.getTarget()
