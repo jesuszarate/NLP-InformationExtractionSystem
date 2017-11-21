@@ -44,8 +44,8 @@ def getTemplate():
     return copy.deepcopy(FileOutputTemplate)
 
 
-def readFileAsArr(filename):
-    filename = getPath(filename)
+def read_file_as_arr(filename):
+    filename = get_path(filename)
     tokens = []
     with open(filename, 'r') as f:
         for line in f:
@@ -54,8 +54,8 @@ def readFileAsArr(filename):
     return tokens
 
 
-def readFileAsArrBySent(filename):
-    filename = getPath(filename)
+def read_file_as_arr_by_sent(filename):
+    filename = get_path(filename)
     tokens = []
     prev = ""
     with open(filename, 'r') as f:
@@ -70,18 +70,18 @@ def readFileAsArrBySent(filename):
     return tokens
 
 
-def isFile(filename):
-    file = Path(getPath(filename))
+def is_file(filename):
+    file = Path(get_path(filename))
     if file.is_file():
         return True
     return False
 
 
-def getPath(filename):
+def get_path(filename):
     return join(FILEPATH, filename)
 
 
-def readRegex():
+def read_regex():
     categories = dict()
     with open('InformationExtractor/AttackTypes', ) as f:
 
@@ -101,31 +101,25 @@ def readRegex():
 
 def readFile(filename, path=''):
     if path == '':
-        filename = getPath(filename)
+        filename = get_path(filename)
     else:
         filename = join(path, filename)
 
-    # filename = getPath(filename)
     tokens = ""
     with open(filename, 'r') as f:
         for line in f:
             tokens += line
-    # return tokens.lower()
-    # print(tokens.title())
-
-    # tokens = '. '.join(i.capitalize() for i in tokens.split('.\\s*'))
     return tokens.title()
-    # return tokens.capitalize()
 
 
-def readFiles(filenames):
+def read_files(filenames):
     text = ''
     for filename in filenames:
         text += readFile(filename)
     return text
 
 
-def writeTemplate(outputResults, filename):
+def write_template(outputResults, filename):
     # filename = 'OutputFiles/{0}.templates'.format(filename)
     filename = '{0}.templates'.format(filename)
     with open(filename, 'w') as of:
@@ -135,7 +129,7 @@ def writeTemplate(outputResults, filename):
             of.write("\n")
 
 
-def readAllFiles():
+def read_all_files():
     files = [f for f in listdir(ANSWER_FILEPATH) if isfile(join(ANSWER_FILEPATH, f))]
 
     stories = []
@@ -144,14 +138,14 @@ def readAllFiles():
     return stories
 
 
-def writeWeapons(weapons):
+def write_weapons(weapons):
     filename = 'InformationExtractor/weapons.txt'
     with open(filename, 'w') as of:
         for w in weapons:
             of.write('{0}\n'.format(w))
 
 
-def getWeapons():
+def get_weapons():
     weaponRegex = ''
     # with open('weapons.txt', 'r') as f:
     with open('InformationExtractor/weapons.txt', 'r') as f:
