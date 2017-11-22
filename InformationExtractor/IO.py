@@ -12,8 +12,8 @@ weapons = ""
 ID = {'label': 'ID', 'tabs': 5}
 INCIDENT = {'label': 'INCIDENT', 'tabs': 3}
 WEAPON = {'label': 'WEAPON', 'tabs': 4}
-PERP_INDIV = {'label': 'PERP_INDIV', 'tabs': 3}
-PERP_ORG = {'label': 'PERP_ORG', 'tabs': 3}
+PERP_INDIV = {'label': 'PERP INDIV', 'tabs': 3}
+PERP_ORG = {'label': 'PERP ORG', 'tabs': 3}
 TARGET = {'label': 'TARGET', 'tabs': 4}
 # ELECTRIC_TOWERS = {'label': 'ELECTRIC TOWERS', 'tabs': 1}
 VICTIM = {'label': 'VICTIM', 'tabs': 4}
@@ -22,20 +22,18 @@ TABS = {
     'ID': 5,
     'INCIDENT': 3,
     'WEAPON': 4,
-    'PERP_INDIV': 3,
-    'PERP_ORG': 3,
+    'PERP INDIV': 3,
+    'PERP ORG': 3,
     'TARGET': 4,
-    'ELECTRIC_TOWERS': 1,
     'VICTIM': 4}
 
 FileOutputTemplate = {
     'ID': '-',
     'INCIDENT': '-',
     'WEAPON': '-',
-    'PERP_INDIV': '-',
-    'PERP_ORG': '-',
+    'PERP INDIV': '-',
+    'PERP ORG': '-',
     'TARGET': '-',
-    'ELECTRIC_TOWERS': '-',
     'VICTIM': '-'
 }
 
