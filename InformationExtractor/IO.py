@@ -148,5 +148,5 @@ def get_weapons():
     # with open('weapons.txt', 'r') as f:
     with open('InformationExtractor/weapons.txt', 'r') as f:
         for line in f:
-            weaponRegex += '{0}|'.format(line.strip())
+            weaponRegex += '(\\b{0}\\b)|'.format(line.strip())
     return weaponRegex[:-1]

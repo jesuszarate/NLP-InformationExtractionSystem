@@ -1,5 +1,6 @@
 Bombs
 Bomb
+Car-Bomb
 Explosive
 Explosives
 Machinegun
