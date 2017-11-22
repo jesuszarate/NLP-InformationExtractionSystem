@@ -49,6 +49,7 @@ class infoExtract:
 
     def compute(self):
 
+        print('computing...')
         for story in self.stories:
             template = io.getTemplate()
             template[io.ID['label']] = self.get_id(story).upper()
@@ -59,6 +60,7 @@ class infoExtract:
             template[io.INCIDENT['label']] = extract_incident.get_incident(story)
             template[io.VICTIM['label']] = extract_victim.get_victim(story)
             self.templates.append(template)
+        print('finished!')
 
     def get_results(self):
         return self.templates
@@ -79,7 +81,6 @@ def main(argv):
 
     if not (io.is_file(argv[0])):
         print('In argument 1 file does not exist: {0}'.format(argv[0]))
-        print('Note: Makesure the input file is inside of the InformationExtractor directory')
         sys.exit(2)
 
     ie = infoExtract(argv[0])
