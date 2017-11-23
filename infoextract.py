@@ -1,5 +1,8 @@
 import sys
 import re
+import nltk
+from nltk.chunk import conlltags2tree, tree2conlltags
+
 from InformationExtractor import extract_target, \
     extract_perp_org, \
     extract_perp_indiv, \
@@ -19,6 +22,8 @@ class infoExtract:
         self.stories = self.split_stories(self.file)
 
         self.weapons = []
+
+
 
     def split_stories(self, file):
         stories = []
@@ -51,12 +56,21 @@ class infoExtract:
 
         print('computing...')
         for story in self.stories:
+
+            tokenized = nltk.word_tokenize(story)
+            tagged = nltk.pos_tag(tokenized)
+
+            namedEnt = nltk.ne_chunk(tagged)
+            iob_tagged = tree2conlltags(namedEnt)
+
+            ne_tree = conlltags2tree(iob_tagged)
+
             template = io.getTemplate()
             template[io.ID['label']] = self.get_id(story).upper()
             template[io.WEAPON['label']] = extract_weapon.get_weapons(self.weapons, story)
-            template[io.PERP_INDIV['label']] = extract_perp_indiv.get_perp_indiv()
+            template[io.PERP_INDIV['label']] = extract_perp_indiv.get_perp_indiv(ne_tree)
             template[io.PERP_ORG['label']] = extract_perp_org.getPerpOrg()
-            template[io.TARGET['label']] = extract_target.getTarget()
+            template[io.TARGET['label']] = extract_target.getTarget(ne_tree)
             template[io.INCIDENT['label']] = extract_incident.get_incident(story)
             template[io.VICTIM['label']] = extract_victim.get_victim(story)
             self.templates.append(template)

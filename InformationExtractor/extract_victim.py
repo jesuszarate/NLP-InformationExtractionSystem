@@ -11,15 +11,71 @@ def find_muder_victim(ne_tree):
         if entitiesperson != None:
             itemStr = str(item).lower()
 
-            m = re.findall(r'(' + '.*murder/.*' + ')', itemStr)
+            m = re.findall(r'(' + 'murder' + ')', itemStr)
+            #m = re.findall(r'(' + '\\bmurder\\b' + ')', itemStr)
             if len(m) > 0:
                 return item
+            # m = re.findall(r'(' + 'were injured' + ')', itemStr)
+
+            # if len(m) > 0:
+            #     return item
 
 def get_victims_reg(items):
     res = ''
     for v in items:
         res += '{0}|'.format(v)
     return res[:-1]
+
+
+def getEntities(ne_tree):
+
+    found_murder = False
+    #for ne in ne_tree:
+    for i in range(0, len(ne_tree)):
+        ne = ne_tree[i]
+        item = str(ne).lower()
+        m = re.findall(r'(' + 'murdered|exploded' + ')', item)
+        #m = re.findall(r'(' + '\\bmurder\\b' + ')', itemStr)
+        if len(m) > 0:
+            found_murder = True
+
+        m = re.findall(r'(' + '\\binjured\\b' + ')', item)
+        if len(m) > 0:
+            for j in range(i, 0, -1):
+                victim = ne_tree[j]
+                person = '\(PERSON\s.+\)'
+                person = '\(FACILITY\s.+\)'
+                entitiesperson = re.match(r'{0}'.format(person), str(victim))
+                if entitiesperson != None:
+                    res = ''
+                    for t in victim:
+                        res += t[0] + ' '
+
+                    print(res[:-1])
+                    return res[:-1]
+
+        if found_murder and not isinstance(ne, tuple):
+            person = '\(PERSON\s.+\)'
+            facility = '\(FACILITY\s.+\)'
+
+            # person = 'PERSON'
+            # facility = 'FACILITY'
+
+            regex = '{0}|{1}'.format(person, facility)
+
+            #entitiesperson = re.match(r'{0}|{1}'.format(person, facility), str(ne))
+            entitiesperson = re.match(r'\(FACILITY\s.+\)', str(ne).replace('\n', ''))
+
+            if entitiesperson != None:
+                res = ''
+                for t in ne:
+                    res += t[0] + ' '
+
+                print(res[:-1])
+                return res[:-1]
+            #found_murder = False
+
+    return '-'
 
 def get_victim(story):
     tokenized = nltk.word_tokenize(story)
@@ -58,4 +114,6 @@ def get_victim(story):
         for v in victim[2:]:
             res += '{0} '.format(v[0])
         return res[:-1]
+
     return '-'
+    #return getEntities(ne_tree)
