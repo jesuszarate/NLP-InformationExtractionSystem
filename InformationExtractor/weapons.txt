@@ -34,3 +34,4 @@ Truck
 Trucks
 Car
 Cars
+Molotov Cocktails
