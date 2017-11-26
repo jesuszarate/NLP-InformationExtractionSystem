@@ -223,10 +223,7 @@ def search(pos, ne_tree):
             if m[0] == 'person' and isinstance(item, tuple):
                 return True, 'Persons'
 
-            if 'carlos' in victim:
-                print()
-
-            if len(m) > 0:
+            if len(m) > 0 and not isinstance(item, tuple):
                 for t in item:
                     res += t[0] + ' '
                 pos += 1

@@ -8,7 +8,7 @@ from InformationExtractor import extract_target, \
     extract_perp_indiv, \
     extract_weapon, \
     extract_incident, \
-    extract_victim, trueCase
+    extract_victim
 from InformationExtractor import IO as io
 
 FILEPATH = "/"
@@ -39,6 +39,8 @@ class infoExtract:
         for token in story:
             if token.lower() in self.dictionary:
                 token = token.lower()
+            # elif token.endswith('s') and token.lower()[:-1] in self.dictionary:
+            #     token = token.lower()
             result += token + ' '
         return result.strip()
 
