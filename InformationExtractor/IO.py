@@ -15,7 +15,6 @@ WEAPON = {'label': 'WEAPON', 'tabs': 4}
 PERP_INDIV = {'label': 'PERP INDIV', 'tabs': 3}
 PERP_ORG = {'label': 'PERP ORG', 'tabs': 3}
 TARGET = {'label': 'TARGET', 'tabs': 4}
-# ELECTRIC_TOWERS = {'label': 'ELECTRIC TOWERS', 'tabs': 1}
 VICTIM = {'label': 'VICTIM', 'tabs': 4}
 
 TABS = {
@@ -97,6 +96,14 @@ def read_regex():
     return categories
 
 
+def readFileFromRoot(filename):
+    tokens = ""
+    with open(filename, 'r') as f:
+        for line in f:
+            tokens += line
+    return tokens.title()
+
+
 def readFile(filename, path=''):
     if path == '':
         filename = get_path(filename)
@@ -115,6 +122,14 @@ def read_files(filenames):
     for filename in filenames:
         text += readFile(filename)
     return text
+
+
+def readDictionary(filename):
+    dictionary = set()
+    with open(filename, 'r') as f:
+        for line in f:
+            dictionary.add(line.strip())
+    return dictionary
 
 
 def write_template(outputResults, filename):

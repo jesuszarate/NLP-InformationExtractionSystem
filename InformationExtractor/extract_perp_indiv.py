@@ -71,6 +71,10 @@ def search(pos, ne_tree):
             pos += 1
         else:
             break
+
+    res = res.replace('Arrest Of', '')
+    res = res.replace('Msgr', '')
+
     if res.strip() != '':
         print(res.strip())
     return None if res.strip() == '' else res.strip()

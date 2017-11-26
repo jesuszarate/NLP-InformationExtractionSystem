@@ -8,7 +8,7 @@ from InformationExtractor import extract_target, \
     extract_perp_indiv, \
     extract_weapon, \
     extract_incident, \
-    extract_victim
+    extract_victim, trueCase
 from InformationExtractor import IO as io
 
 FILEPATH = "/"
@@ -20,10 +20,8 @@ class infoExtract:
         self.templates = []
         self.file = io.read_file_as_arr(filename)
         self.stories = self.split_stories(self.file)
-
+        self.dictionary = io.readDictionary('words.txt')
         self.weapons = []
-
-
 
     def split_stories(self, file):
         stories = []
@@ -35,6 +33,14 @@ class infoExtract:
             current += story
         stories.append(current)
         return stories
+
+    def toTrueCase(self, story):
+        result = ''
+        for token in story:
+            if token.lower() in self.dictionary:
+                token = token.lower()
+            result += token + ' '
+        return result.strip()
 
     def get_id(self, story):
         m = re.search(ID_PATTERN, story)
@@ -56,8 +62,12 @@ class infoExtract:
 
         print('computing...')
         for story in self.stories:
-
             tokenized = nltk.word_tokenize(story)
+
+            tokenized = self.toTrueCase(tokenized)
+
+            tokenized = nltk.word_tokenize(tokenized)
+
             tagged = nltk.pos_tag(tokenized)
 
             namedEnt = nltk.ne_chunk(tagged)
@@ -67,13 +77,12 @@ class infoExtract:
 
             template = io.getTemplate()
             template[io.ID['label']] = self.get_id(story).upper()
-            template[io.WEAPON['label']] = extract_weapon.get_weapons(self.weapons, story).upper()
-            template[io.PERP_INDIV['label']] = extract_perp_indiv.get_perp_indiv(ne_tree).upper()
-            template[io.PERP_ORG['label']] = extract_perp_org.getPerpOrg().upper()
-            template[io.TARGET['label']] = extract_target.getTarget(ne_tree).upper()
             template[io.INCIDENT['label']] = extract_incident.get_incident(story).upper()
-            template[io.VICTIM['label']] = extract_victim.get_victim(ne_tree).upper()
-            # template[io.VICTIM['label']] = extract_victim.get_victim(story).upper()
+            template[io.WEAPON['label']] = extract_weapon.get_weapons(self.weapons, story).upper()
+            template[io.PERP_INDIV['label']] = '-' # extract_perp_indiv.get_perp_indiv(ne_tree).upper()
+            template[io.PERP_ORG['label']] = '-' # extract_perp_org.get_perp_org(ne_tree).upper()
+            template[io.TARGET['label']] = '-' # extract_target.getTarget(ne_tree).upper()
+            template[io.VICTIM['label']] = extract_victim.get_victim(ne_tree)
             self.templates.append(template)
         print('finished!')
 

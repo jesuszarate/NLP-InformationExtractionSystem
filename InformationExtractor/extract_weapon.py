@@ -9,6 +9,7 @@ def get_weapons(weapons, story):
 
     m = re.findall(r'(' + weapons + ')', story)
     if len(m):
-        return m[0][00].strip().upper()
+        val = m[0][00].strip().upper()
+        return val if val != 'CAR' else val + ' BOMB'
     else:
         return '-'
