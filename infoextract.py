@@ -83,7 +83,7 @@ class infoExtract:
             template[io.WEAPON['label']] = extract_weapon.get_weapons(self.weapons, story).upper()
             template[io.PERP_INDIV['label']] = '-' # extract_perp_indiv.get_perp_indiv(ne_tree).upper()
             template[io.PERP_ORG['label']] = '-' # extract_perp_org.get_perp_org(ne_tree).upper()
-            template[io.TARGET['label']] = '-' # extract_target.getTarget(ne_tree).upper()
+            template[io.TARGET['label']] = '-'#extract_target.getTarget(ne_tree).upper()
             template[io.VICTIM['label']] = extract_victim.get_victim(ne_tree)
             self.templates.append(template)
         print('finished!')
