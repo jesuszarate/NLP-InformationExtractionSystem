@@ -49,7 +49,7 @@ contentArray = ['THE 1ST INFANTRY BRIGADE IS CARRYING OUT OPERATIONS IN NORTHERN
                 'GATHERING, COULD BE HEARD.  THE NIGHT BEFORE LAST, THERE WERE ATTEMPTS TO\n',
                 'ENTER THE CAPITAL FROM THAT DIRECTION.\n']
 
-file = "DEV-MUC3-0230"
+file = "testset1-input.txt.conll"
 # contentArray = io.readFileAsArr(file) # Uncomment this line to read the file "DEV-MUC3-0006"
 contentArray = [io.readFile(file)]  # Uncomment this line to read the file "DEV-MUC3-0006"
 
