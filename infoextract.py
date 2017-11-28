@@ -3,6 +3,7 @@ import re
 import nltk
 from nltk.chunk import conlltags2tree, tree2conlltags
 
+import command
 from InformationExtractor import extract_target, \
     extract_perp_org, \
     extract_perp_indiv, \
@@ -39,8 +40,6 @@ class infoExtract:
         for token in story:
             if token.lower() in self.dictionary:
                 token = token.lower()
-            # elif token.endswith('s') and token.lower()[:-1] in self.dictionary:
-            #     token = token.lower()
             result += token + ' '
         return result.strip()
 
@@ -108,6 +107,9 @@ def main(argv):
     if not (io.is_file(argv[0])):
         print('In argument 1 file does not exist: {0}'.format(argv[0]))
         sys.exit(2)
+
+    # Test
+    command.computeTrueCase(argv[0])
 
     ie = infoExtract(argv[0])
     ie.compute()

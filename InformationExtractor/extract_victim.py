@@ -37,17 +37,13 @@ def get_victim(ne_tree):
 
 
 def reverseSearch(pos, ne_tree):
-    person = False
     val = ''
     for j in range(pos, pos - 10, -1):
         if j < 0:
             break
         person, val = search(j, ne_tree)
-        if val != None:# and person:
+        if val != None:
             return val
-    # nnp = findNNP(pos, ne_tree)
-    #
-    # return '-' if nnp == None else nnp.strip()
     return '-' if val == None else val
 
 
@@ -57,7 +53,6 @@ def findNNP(pos, ne_tree):
     for j in range(pos, pos - 10, -1):
         if j < 0:
             break
-        # person, val = search(j, ne_tree)
         victim = str(ne_tree[j]).lower()
         if 'nnp' in victim:
             if isinstance(ne_tree[j], tuple):
@@ -77,7 +72,7 @@ def findFistOrganization(pos, ne_tree):
         if j >= len(ne_tree):
             break
         person, val = search(j, ne_tree)
-        if val != None:# and person:
+        if val != None:
             return val
     return '-' if val == None else val
 

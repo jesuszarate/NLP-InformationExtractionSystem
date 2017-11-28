@@ -15,7 +15,10 @@ def getTarget(ne_tree):
                     or m[0] == 'blew' or m[0] == 'intended' or m[0] == 'placed':
                 for aPos in range(i, i + 10):
                     if aPos < len(ne_tree):
-                        m1 = re.findall(r'(' + '\\btarget\\b|\\bbombs\\b|\\bup\\b|\\bagainst\\b|\\bon\\b|\\battack\\b|\\bthrown\\b|\\bdamage\\b|\\boff\\b' + ')', str(ne_tree[aPos]).lower())
+                        m1 = re.findall(
+                            r'(' + '\\btarget\\b|\\bbombs\\b|\\bup\\b|\\bagainst\\b|\\bon\\b|\\battack\\b|\\bthrown\\b'
+                                   '|\\bdamage\\b|\\boff\\b' + ')',
+                            str(ne_tree[aPos]).lower())
                         if len(m1) > 0:
                             return findFistOrganization(aPos + 1, ne_tree)
 
@@ -26,7 +29,8 @@ def getTarget(ne_tree):
                         m1 = re.findall(r'(' + '\\bup\\b|\\bon\\b' + ')', str(ne_tree[aPos]).lower())
                         if len(m1) > 0:
                             return reverseSearch(aPos + 1, ne_tree)
-            if m[0] == 'attacked' or m[0] == 'exploded' or m[0] == 'planted' or m[0] == 'detonated' or m[0] == 'usurp' or m[0] == 'sabotaged':
+            if m[0] == 'attacked' or m[0] == 'exploded' or m[0] == 'planted' or m[0] == 'detonated' or m[
+                0] == 'usurp' or m[0] == 'sabotaged':
                 return findFistOrganization(i + 1, ne_tree)
 
     return '-'
@@ -53,16 +57,18 @@ def findFistOrganization(pos, ne_tree):
     val = searchNN(pos, ne_tree)
     return val if val != None else '-'
 
+
 def searchNN(pos, ne_tree):
     res = ''
     while True:
         item = ne_tree[pos]
         victim = str(ne_tree[pos]).lower()
 
-        m = re.findall(r'(' + 'tonight|today|early|tomorrow|yesterday|night|morning|afternoon|evening|monday|tuesday|wednesday|thrusday|friday'
-                              '|saturday|sunday' + ')', victim)
+        m = re.findall(
+            r'(' + 'tonight|today|early|tomorrow|yesterday|night|morning|afternoon|evening|monday|tuesday|wednesday|thrusday|friday'
+                   '|saturday|sunday' + ')', victim)
 
-        #if 'nn' in victim and 'tonight' not in victim and 'today' not in victim and 'friday' not in victim:
+        # if 'nn' in victim and 'tonight' not in victim and 'today' not in victim and 'friday' not in victim:
 
         other = re.findall(r'(' + '\'in\'|\'the\'|\'and\'' + ')', victim)
 
@@ -72,7 +78,7 @@ def searchNN(pos, ne_tree):
 
         if 'bomb' not in victim and (matchPOS != None or res != '' and (len(other) > 0)) and len(m) <= 0:
 
-        # if 'nnp' in victim:
+            # if 'nnp' in victim:
             if isinstance(ne_tree[pos], tuple):
                 res += ne_tree[pos][0] + ' '
                 pos += 1
@@ -80,14 +86,14 @@ def searchNN(pos, ne_tree):
                 for t in ne_tree[pos]:
                     res += t[0] + ' '
                     pos += 1
-                #return res
+                    # return res
         else:
             break
 
     return None if res == '' else process(res)
 
-def search(pos, ne_tree):
 
+def search(pos, ne_tree):
     person = False
     res = ''
     try:
@@ -107,6 +113,7 @@ def search(pos, ne_tree):
         return process(res)
     except:
         return process(res)
+
 
 def process(res):
     res = res.strip()
